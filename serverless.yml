@@ -57,12 +57,6 @@ resources:
         TableName: ${self:custom.tableName}
 
 functions:
-  hello:
-    handler: handler.hello
-    events:
-      - http:
-          path: hola-mundo
-          method: get
   crearPeople:
     handler: src/people.crearPeople
     events:

@@ -61,6 +61,12 @@ _Instalar Node-Fetch, para la consulta externa de Api rest, en este caso se est�
 npm install node-fetch
 ```
 
+_Instalar UUID, para la generación de ID al momento de registrar un personaje._
+
+```
+npm install uuid
+```
+
 ## Ejecutando ⚙️
 
 _Para ejecutar localmente y realizar las pruebas, se debe ejecutar la siguiente línea en la consola._
@@ -71,7 +77,7 @@ sls offline start
 
 _Se ha implementado un CRUD básico para la tabla Peaple, que almacena personajes de Star Wars._
 
-### Prueba de POST 🔩
+### Prueba de registro por POST 🔩
 
 _Para realizar el post, se maneja la siguiente url de manera local._
 
@@ -98,7 +104,7 @@ http://localhost:3000/dev/people
 }
 ```
 
-### Prueba de listado GET 🔩
+### Prueba de listado de personajes por GET 🔩
 
 _Para realizar el GET del listado de personajes, se maneja la siguiente url de manera local._
 
@@ -106,29 +112,31 @@ _Para realizar el GET del listado de personajes, se maneja la siguiente url de m
 http://localhost:3000/dev/people
 ```
 
-### Prueba de un objeto GET 🔩
+### Prueba de lectura de un objeto por GET 🔩
 
-_Para realizar el GET de un personaje, se maneja la siguiente url de manera local._
+_Para realizar el GET de un personaje, es necesario brindar por PathParams el id del personaje registrado en la BD, se maneja la siguiente url de manera local._
 
 ```
 http://localhost:3000/dev/people/{id}
 ```
 
-_Hay una validación para el GET de un personaje, los personajes guardados, tienen un ID autogenerado, sin embargo, es posible obtener un personaje que no esté guardado siempre y cuando existan en el SWAPI, bastaría con brindarle un id válido._
+_Hay una validación para el GET de un personaje; los personajes guardados tienen un ID autogenerado, sin embargo, es posible obtener un personaje que no esté guardado siempre y cuando existan en el SWAPI, bastaría con brindarle un id válido, como por ejemplo:_
 
 ```
 http://localhost:3000/dev/people/5
+
+Brindará los datos de Leia Organa.
 ```
 
-### Prueba de listado PUT 🔩
+### Prueba de actualización de un personaje por PUT 🔩
 
-_Para realizar el PUT de un personaje, se maneja la siguiente url de manera local._
+_Para realizar el PUT de un personaje, se brinda por PathParams el id del personaje y el json con los datos a actualizar, se maneja la siguiente url de manera local._
 
 ```
 http://localhost:3000/dev/people/{id}
 ```
 
-_Se puede alcanzar un json como el siguiente._
+_Se puede alcanzar un json como el siguiente:_
 
 ```
 {
@@ -156,7 +164,7 @@ _Se puede alcanzar un json como el siguiente._
 }
 ```
 
-### Prueba de listado DELETE 🔩
+### Prueba de eliminación de un personaje por DELETE 🔩
 
 _Para realizar el DELETE de un personaje, hay que pasar un parámetro por medio de PathParams se maneja la siguiente url de manera local._
 
@@ -164,13 +172,33 @@ _Para realizar el DELETE de un personaje, hay que pasar un parámetro por medio 
 http://localhost:3000/dev/people/{id}
 ```
 
+
 ## Despliegue 📦
 
-_El proyecto está preparado para desplegar en AWS, para realizar el ejercicio con los recursos de la nube._
+_El proyecto está preparado para desplegar en AWS, para realizar el ejercicio antes mencionado con los recursos de la nube._
 
 ```
 serverless deploy
 ```
+_Se los endpoint generados se encuentran en AWS._
+```
+  POST - https://4t1mv5s6o8.execute-api.us-east-1.amazonaws.com/dev/people
+  GET - https://4t1mv5s6o8.execute-api.us-east-1.amazonaws.com/dev/people
+  GET - https://4t1mv5s6o8.execute-api.us-east-1.amazonaws.com/dev/people/{id}
+  PUT - https://4t1mv5s6o8.execute-api.us-east-1.amazonaws.com/dev/people/{id}
+  DELETE - https://4t1mv5s6o8.execute-api.us-east-1.amazonaws.com/dev/people/{id}
+```
+
+### Configuración de AIM, cuenta para despliegue en AWS 🔩
+
+_Para el correcto despliegue en AWS, es necesario tener las cuentas AIM con los permisos necesarios, para ello se debe configurar el framework serverless con la cuenta aws._
+
+_La cuenta AIM debe contar con el key y el clave, tener en cuenta que la clave solo se verá cuando se genera por primera vez la cuenta AIM, las claves pueden ser generadas nuevamente en caso perderla, se debe seguir el siguiente comando:_
+
+```
+serverless config credentials --provider aws --key 1234 --secret 5678
+```
+
 
 ## Construido con 🛠️
 
@@ -180,7 +208,7 @@ _Herramientas usadas_
 * [VisualCode](https://code.visualstudio.com/download) - Editor de código fuente.
 * [Serverless](https://rometools.github.io/rome/) - Framework usado.
 * [DynamoDB] (https://aws.amazon.com/es/dynamodb/) - Base de datos NoSQL de AWS.
-
+* [AWS] (https://aws.amazon.com/es/) - Tecnología en nube.
 
 ## Versionado 📌
 
@@ -190,6 +218,5 @@ Se usa GitHub para el versionamiento https://github.com/007rasec/aws-rest-api-sw
 ## Autores ✒️
 
 * **César Medina Romero** - *Trabajo Inicial y documentación* - [007rasec](https://github.com/007rasec)
-* **Fulanito Detal** - *Documentación* - [fulanitodetal](#fulanito-de-tal)
 
 ---
