@@ -1,0 +1,497 @@
+openapi: 3.0.0
+info:
+  description: 'SWAPI Serverless'
+  version: '1.0.0'
+  title: 'Star Wars API AWS'
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: 'cesar.medina.romero@outlook.com'
+  license:
+    name: 'Apache 2.0'
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  - url: 'http://localhost:3000'
+tags:
+  - name: 'people'
+    description: 'People'
+    externalDocs:
+      description: 'Documentación SWAPI'
+      url: 'https://swapi.py4e.com/documentation#people'
+schemes:
+  - 'https'
+  - 'http'
+paths:
+  /dev/people:
+    parameters: []
+    get:
+      summary: Obtener lista de personajes
+      tags: []
+      responses:
+        '200':
+          description: Personajes encontrados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/People'
+              examples:
+                people-ejemplo:
+                  value:
+                    nombre: string
+                    genero: string
+                    peliculas: string
+                    color_ojos: string
+                    color_cabello: string
+                    color_piel: string
+                    altura: string
+                    peso: string
+                    planeta: string
+                    especie: string
+                    nave: string
+                    vehiculo: string
+                    url: string
+                    fecha_nacimiento: string
+                    id: string
+        '404':
+          description: 'No se encuentra la lista, ocurrió un error.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      operationId: obtenerListaPersonajes
+      description: Obtiene la lista de personajes registrados en la bd.
+  /dev/user:
+    post:
+      tags:
+        - 'people'
+      summary: Crear un nuevo personaje en la bd
+      operationId: grabar-personaje
+      responses:
+        '200':
+          description: Personaje creado.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  nombre:
+                    type: string
+                    minLength: 1
+                  genero:
+                    type: string
+                    minLength: 1
+                  peliculas:
+                    type: string
+                    minLength: 1
+                  color_ojos:
+                    type: string
+                    minLength: 1
+                  color_cabello:
+                    type: string
+                    minLength: 1
+                  color_piel:
+                    type: string
+                    minLength: 1
+                  altura:
+                    type: string
+                    minLength: 1
+                  peso:
+                    type: string
+                    minLength: 1
+                  planeta:
+                    type: string
+                    minLength: 1
+                  especie:
+                    type: string
+                    minLength: 1
+                  nave:
+                    type: string
+                    minLength: 1
+                  vehiculo:
+                    type: string
+                    minLength: 1
+                  url:
+                    type: string
+                    minLength: 1
+                  fecha_nacimiento:
+                    type: string
+                    minLength: 1
+                required:
+                  - nombre
+                  - genero
+                  - peliculas
+                  - color_ojos
+                  - color_cabello
+                  - color_piel
+                  - altura
+                  - peso
+                  - planeta
+                  - especie
+                  - nave
+                  - vehiculo
+                  - url
+                  - fecha_nacimiento
+              examples: {}
+        '400':
+          description: Ocurrió un error en el registro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value: {}
+        '409':
+          description: Email Already Taken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  minLength: 1
+                genero:
+                  type: string
+                  minLength: 1
+                peliculas:
+                  type: string
+                  minLength: 1
+                color_ojos:
+                  type: string
+                  minLength: 1
+                color_cabello:
+                  type: string
+                  minLength: 1
+                color_piel:
+                  type: string
+                  minLength: 1
+                altura:
+                  type: string
+                  minLength: 1
+                peso:
+                  type: string
+                  minLength: 1
+                planeta:
+                  type: string
+                  minLength: 1
+                especie:
+                  type: string
+                  minLength: 1
+                nave:
+                  type: string
+                  minLength: 1
+                vehiculo:
+                  type: string
+                  minLength: 1
+                url:
+                  type: string
+                  minLength: 1
+                fecha_nacimiento:
+                  type: string
+                  minLength: 1
+              required:
+                - nombre
+                - genero
+                - peliculas
+                - color_ojos
+                - color_cabello
+                - color_piel
+                - altura
+                - peso
+                - planeta
+                - especie
+                - nave
+                - vehiculo
+                - url
+                - fecha_nacimiento
+            examples:
+              example-1:
+                value:
+                  nombre: string
+                  genero: string
+                  peliculas: string
+                  color_ojos: string
+                  color_cabello: string
+                  color_piel: string
+                  altura: string
+                  peso: string
+                  planeta: string
+                  especie: string
+                  nave: string
+                  vehiculo: string
+                  url: string
+                  fecha_nacimiento: string
+              example-2:
+                value:
+                  nombre: string
+                  genero: string
+                  peliculas: string
+                  color_ojos: string
+                  color_cabello: string
+                  color_piel: string
+                  altura: string
+                  peso: string
+                  planeta: string
+                  especie: string
+                  nave: string
+                  vehiculo: string
+                  url: string
+                  fecha_nacimiento: string
+        description: Post the necessary fields for the API to create a new user.
+      description: Crea un nuevo usuario en la bd DynamoDB.
+    parameters: []
+  '/dev/people/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: Se obtienen los datos de un personaje.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  nombre:
+                    type: string
+                    minLength: 1
+                  genero:
+                    type: string
+                    minLength: 1
+                  peliculas:
+                    type: string
+                    minLength: 1
+                  color_ojos:
+                    type: string
+                    minLength: 1
+                  color_cabello:
+                    type: string
+                    minLength: 1
+                  color_piel:
+                    type: string
+                    minLength: 1
+                  altura:
+                    type: string
+                    minLength: 1
+                  peso:
+                    type: string
+                    minLength: 1
+                  planeta:
+                    type: string
+                    minLength: 1
+                  especie:
+                    type: string
+                    minLength: 1
+                  nave:
+                    type: string
+                    minLength: 1
+                  vehiculo:
+                    type: string
+                    minLength: 1
+                  url:
+                    type: string
+                    minLength: 1
+                  fecha_nacimiento:
+                    type: string
+                    minLength: 1
+                  id:
+                    type: string
+                    minLength: 1
+                required:
+                  - nombre
+                  - genero
+                  - peliculas
+                  - color_ojos
+                  - color_cabello
+                  - color_piel
+                  - altura
+                  - peso
+                  - planeta
+                  - especie
+                  - nave
+                  - vehiculo
+                  - url
+                  - fecha_nacimiento
+                  - id
+              examples: {}
+      operationId: obtenerPersonaje
+      description: Obtiene los datos de un solo personaje
+      parameters: []
+    put:
+      tags:
+        - 'people'
+      summary: ''
+      operationId: actualizarPersonaje
+      responses:
+        '200':
+          description: Se actualizaron los datos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      description: 'Actualiza un personaje por id registrado, solo actualiza los registrados en la BD'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  minLength: 1
+                genero:
+                  type: string
+                  minLength: 1
+                peliculas:
+                  type: string
+                  minLength: 1
+                color_ojos:
+                  type: string
+                  minLength: 1
+                color_cabello:
+                  type: string
+                  minLength: 1
+                color_piel:
+                  type: string
+                  minLength: 1
+                altura:
+                  type: string
+                  minLength: 1
+                peso:
+                  type: string
+                  minLength: 1
+                planeta:
+                  type: string
+                  minLength: 1
+                especie:
+                  type: string
+                  minLength: 1
+                nave:
+                  type: string
+                  minLength: 1
+                vehiculo:
+                  type: string
+                  minLength: 1
+                url:
+                  type: string
+                  minLength: 1
+                fecha_nacimiento:
+                  type: string
+                  minLength: 1
+                id:
+                  type: string
+                  minLength: 1
+              required:
+                - nombre
+                - genero
+                - peliculas
+                - color_ojos
+                - color_cabello
+                - color_piel
+                - altura
+                - peso
+                - planeta
+                - especie
+                - nave
+                - vehiculo
+                - url
+                - fecha_nacimiento
+                - id
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+        description: Datos necesarios para la actualización
+    delete:
+      tags:
+        - 'people'
+      summary: ''
+      operationId: eliminarPersonaje
+      responses:
+        '200':
+          description: Ok
+      description: 'Elimina personajes registrados en la bd, por ID.'
+components:
+  schemas:
+    People:
+      description: Modelo de respuesta para acciones en los personajes de SWAPI
+      type: object
+      properties:
+        nombre:
+          type: string
+          minLength: 1
+        genero:
+          type: string
+          minLength: 1
+        peliculas:
+          type: string
+          minLength: 1
+        color_ojos:
+          type: string
+          minLength: 1
+        color_cabello:
+          type: string
+          minLength: 1
+        color_piel:
+          type: string
+          minLength: 1
+        altura:
+          type: string
+          minLength: 1
+        peso:
+          type: string
+          minLength: 1
+        planeta:
+          type: string
+          minLength: 1
+        especie:
+          type: string
+          minLength: 1
+        nave:
+          type: string
+          minLength: 1
+        vehiculo:
+          type: string
+          minLength: 1
+        url:
+          type: string
+          minLength: 1
+        fecha_nacimiento:
+          type: string
+          minLength: 1
+        id:
+          type: string
+          minLength: 1
+      required:
+        - nombre
+        - genero
+        - peliculas
+        - color_ojos
+        - color_cabello
+        - color_piel
+        - altura
+        - peso
+        - planeta
+        - especie
+        - nave
+        - vehiculo
+        - url
+        - fecha_nacimiento
+        - id
+      title: People
